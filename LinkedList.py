@@ -43,6 +43,18 @@ class LinkedList:
         prev_node.next = new_node
         new_node.next = flag_node
 
+    def insert_using_key(self, key, new_data):
+        new_node =  Node(new_data)
+        temp = self.head
+
+        while temp:
+            if temp.data is key:
+                break
+            prev = temp
+            temp = temp.next
+
+        new_node.next = prev.next
+        prev.next = new_node
 
 
 
@@ -83,4 +95,10 @@ l.display()
 
 print('\n\nthe linked list after inserting using insert_at_position operations')
 l.insert_at_position(71, 3)
+l.display()
+
+print('\n\nthe linked list after inserting using insert_using_key operations')
+l.insert_using_key(27, 100)
+l.insert_using_key(87, 9)
+l.insert_using_key('it can contain many data type', 'anywhere')
 l.display()
