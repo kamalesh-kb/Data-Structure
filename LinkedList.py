@@ -46,7 +46,7 @@ class LinkedList:
     def insert_using_key(self, key, new_data):
         new_node =  Node(new_data)
         temp = self.head
-
+        prev = temp
         while temp:
             if temp.data is key:
                 break
