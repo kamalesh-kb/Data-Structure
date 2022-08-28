@@ -14,6 +14,22 @@ class LinkedList:
         new_head.next = self.head
         self.head = new_head
 
+    def insert_at_mid(self, new_data):
+        new_node = Node(new_data)
+        mid = self.get_length()//2
+        temp = self.head
+        prev = temp
+        pos = 0
+
+        while pos < mid:
+            prev = temp
+            temp = temp.next
+            pos += 1
+
+        prev.next = new_node
+        new_node.next = temp
+
+
     def append(self, new_data):
         new_end = Node(new_data)
         end = self.head
@@ -60,6 +76,19 @@ class LinkedList:
     def delete_at_beginning(self):
         self.head = self.head.next
 
+    def delete_at_mid(self):
+        temp = self.head
+        mid = self.get_length() // 2
+        pos = 0
+        prev = temp
+        while pos < mid:
+            prev = temp
+            temp = temp.next
+            pos += 1
+
+        prev.next = temp.next
+        del temp
+
     def pop(self):
         end = self.head
         prev = end
@@ -82,7 +111,7 @@ class LinkedList:
         temp = self.head
         if position > c:
             print('The position is out of range')
-            print('Please enter the position between 0 and',c)
+            print('Please enter the position between 0 and', c)
 
         if position == 0:
             self.head = self.head.next
@@ -95,13 +124,30 @@ class LinkedList:
 
         prev.next = temp.next
 
+    def remove(self, key): #method to do deletion using key
+        temp = self.head
+        prev = temp
+        if temp.data is key:
+            self.head = self.head.next
+            return
+        while temp:
+            if temp.data is key:
+                break
+            prev = temp
+            temp = temp.next
+
+        prev.next = temp.next
+        del temp
+
+
+    """ method to find the length of the linked list"""
     def get_length(self):
         temp = self.head
         c = 0
         while temp:
             temp = temp.next
             c += 1
-        print(c)
+        return c
 
     def display(self):
         temp = self.head
@@ -165,3 +211,19 @@ l.delete_at_position(9)
 l.delete_at_position(0)
 l.display()
 
+print('\n\nmethod to find the length of the linked list')
+print('the length of the linked list is', l.get_length())
+
+print('\n\nthe linked list after remove operations(deletion using key)')
+l.remove(27)
+l.remove(9)
+l.remove(3)
+l.display()
+
+print('\n\nthe linked list after delete_at_mid operations')
+l.delete_at_mid()
+l.display()
+
+print('\n\nthe linked list after insert_at_mid operations')
+l.insert_at_mid(0)
+l.display()
