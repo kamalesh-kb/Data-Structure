@@ -44,7 +44,7 @@ class LinkedList:
         new_node.next = flag_node
 
     def insert_using_key(self, key, new_data):
-        new_node =  Node(new_data)
+        new_node = Node(new_data)
         temp = self.head
         prev = temp
         while temp:
@@ -60,7 +60,48 @@ class LinkedList:
     def delete_at_beginning(self):
         self.head = self.head.next
 
+    def pop(self):
+        end = self.head
+        prev = end
+        while end.next:
+            prev = end
+            end = end.next
 
+        prev.next = None
+        del end
+
+    def delete_at_position(self, position):
+        pos = 0
+        temp = self.head
+        prev = temp
+
+        c = 0
+        while temp:
+            temp = temp.next
+            c += 1
+        temp = self.head
+        if position > c:
+            print('The position is out of range')
+            print('Please enter the position between 0 and',c)
+
+        if position == 0:
+            self.head = self.head.next
+            return
+
+        while pos < position:
+            prev = temp
+            temp = temp.next
+            pos += 1
+
+        prev.next = temp.next
+
+    def get_length(self):
+        temp = self.head
+        c = 0
+        while temp:
+            temp = temp.next
+            c += 1
+        print(c)
 
     def display(self):
         temp = self.head
@@ -111,3 +152,16 @@ print('\n\nthe linked list after deleting_at_beginning')
 l.delete_at_beginning()
 l.delete_at_beginning()
 l.display()
+
+print('\n\nthe linked list after popping operations')
+l.pop()
+l.pop()
+l.pop()
+l.display()
+
+print('\n\nthe linked list after deleting using delete_at_position method')
+l.delete_at_position(3)
+l.delete_at_position(9)
+l.delete_at_position(0)
+l.display()
+
