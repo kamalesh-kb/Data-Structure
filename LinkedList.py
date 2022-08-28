@@ -56,6 +56,10 @@ class LinkedList:
         new_node.next = prev.next
         prev.next = new_node
 
+    """linked list deletion methods"""
+    def delete_at_beginning(self):
+        self.head = self.head.next
+
 
 
     def display(self):
@@ -101,4 +105,9 @@ print('\n\nthe linked list after inserting using insert_using_key operations')
 l.insert_using_key(27, 100)
 l.insert_using_key(87, 9)
 l.insert_using_key('it can contain many data type', 'anywhere')
+l.display()
+
+print('\n\nthe linked list after deleting_at_beginning')
+l.delete_at_beginning()
+l.delete_at_beginning()
 l.display()
