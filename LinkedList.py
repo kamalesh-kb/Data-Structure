@@ -7,16 +7,18 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.size = 0
 
     """ linked list insertion methods"""
     def push(self, new_data):
         new_head = Node(new_data)
         new_head.next = self.head
         self.head = new_head
+        self.size += 1
 
     def insert_at_mid(self, new_data):
         new_node = Node(new_data)
-        mid = self.get_length()//2
+        mid = self.size // 2
         temp = self.head
         prev = temp
         pos = 0
@@ -26,8 +28,9 @@ class LinkedList:
             temp = temp.next
             pos += 1
 
+        new_node.next = prev.next
         prev.next = new_node
-        new_node.next = temp
+        self.size += 1
 
 
     def append(self, new_data):
@@ -38,6 +41,7 @@ class LinkedList:
             end = end.next
 
         end.next = new_end
+        self.size += 1
 
     def insert_at_position(self, new_data, position):
         new_node = Node(new_data)
@@ -58,6 +62,7 @@ class LinkedList:
 
         prev_node.next = new_node
         new_node.next = flag_node
+        self.size += 1
 
     def insert_using_key(self, key, new_data):
         new_node = Node(new_data)
@@ -71,14 +76,16 @@ class LinkedList:
 
         new_node.next = prev.next
         prev.next = new_node
+        self.size += 1
 
     """linked list deletion methods"""
     def delete_at_beginning(self):
         self.head = self.head.next
+        self.size -= 1
 
     def delete_at_mid(self):
         temp = self.head
-        mid = self.get_length() // 2
+        mid = self.size // 2
         pos = 0
         prev = temp
         while pos < mid:
@@ -88,6 +95,7 @@ class LinkedList:
 
         prev.next = temp.next
         del temp
+        self.size -= 1
 
     def pop(self):
         end = self.head
@@ -98,6 +106,7 @@ class LinkedList:
 
         prev.next = None
         del end
+        self.size -= 1
 
     def delete_at_position(self, position):
         pos = 0
@@ -123,6 +132,7 @@ class LinkedList:
             pos += 1
 
         prev.next = temp.next
+        self.size -= 1
 
     def remove(self, key): #method to do deletion using key
         temp = self.head
@@ -138,16 +148,38 @@ class LinkedList:
 
         prev.next = temp.next
         del temp
+        self.size -= 1
 
 
     """ method to find the length of the linked list"""
     def get_length(self):
+        print('length of the linked list is', self.size)
+
+    def get_node(self, value):
         temp = self.head
-        c = 0
+        c = -1
         while temp:
+            if temp.data is value:
+                c += 1
+                print('value', value, 'is in the node', c, 'in the linked list')
+                break
+            c += 1
+            temp = temp.next
+        if temp is None:
+            print('the entered value', value, 'is not in the linked list')
+
+    def get_value(self, node):
+        print(self.size)
+        if node >= self.size:
+            print('the given node is out of range')
+            return
+        c = 0
+        temp = self.head
+        while c < node:
             temp = temp.next
             c += 1
-        return c
+
+        print('the value in node', node, 'is', temp.data)
 
     def display(self):
         temp = self.head
@@ -167,9 +199,7 @@ l.head.next = second
 second.next = third
 third.next = fourth
 fourth.next = fifth
-
-print('The original linked list created')
-l.display()
+l.size += 4
 
 print('\n\nthe linked list after pushing operations')
 l.push(10)
@@ -227,3 +257,9 @@ l.display()
 print('\n\nthe linked list after insert_at_mid operations')
 l.insert_at_mid(0)
 l.display()
+
+print('\n\n')
+l.get_node(0)
+
+print('\n\n')
+l.get_value(3)
